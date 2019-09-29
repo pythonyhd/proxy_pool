@@ -266,6 +266,22 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     ip_port = tr.find('td:nth-child(1)').text().strip()
                     # print(ip_port)
                     yield ip_port
+                    
+    def crawl_nima(self):
+        """
+        尼玛代理：http://www.nimadaili.com/putong/
+        :return:
+        """
+        start_url = 'http://www.nimadaili.com/putong/{}/'
+        urls = [start_url.format(page) for page in range(1, 4)]
+        ip_port_pattern = re.compile(r'<td>(\d+\.\d+\.\d+\.\d+\:\d+)</td>')
+        for url in urls:
+            html = downloader(url=url, method='GET')
+            if html:
+                ip_port_list = ip_port_pattern.findall(html)
+                for result in ip_port_list:
+                    # print(result)
+                    yield result
 
     # def crawl_quanwang(self):
     #     """
