@@ -11,7 +11,7 @@
                            __ / /
                           /___ /
 
-##### [介绍文档](https://github.com/jhao104/proxy_pool/blob/master/doc/introduce.md)
+##### [介绍文档](https://github.com/pythonyhd/proxy_pool/README.md)
 
 * 支持版本: ![](https://img.shields.io/badge/Python-3.x-blue.svg)
 
