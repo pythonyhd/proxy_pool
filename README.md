@@ -52,7 +52,7 @@ pip3 install -r requirements.txt
   | 云代理爬虫 |  可用  |几分钟一次|   *     |  是      | [地址](http://www.ip3366.net/free/?stype=1)|
   | ProxyList+ |  可用  |几分钟一次|   *     |  是      | [地址](https://list.proxylistplus.com/Fresh-HTTP-Proxy-List-1)|
   
-  如果还有其他好的免费代理网站, 可以在提交在[issues](https://github.com/jhao104/proxy_pool/issues/71), 下次更新时会考虑在项目中支持。
+  如果还有其他好的免费代理网站, 可以在提交在[issues](https://github.com/pythonyhd/proxy_pool/issues), 下次更新时会考虑在项目中支持。
 
 ### 问题反馈
 
