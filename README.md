@@ -39,7 +39,7 @@ pip3 install -r requirements.txt
    
   | 厂商名称 |  状态  |  更新速度 |  可用率  |  是否被墙  |  地址 |
   | -----   |  ---- | --------  | ------ | --------- | ----- |
-  | 无忧代理 |  可用  | 几分钟一次 |   *     |  否       | [地址](http://www.data5u.com/free/index.html) |
+  | 无忧代理 |  可用  | 几分钟一次 |   *     |  否       | [地址](http://www.data5u.com/) |
   | 代理66   | 可用  | 更新很慢   |   *     |  否      | [地址](http://www.66ip.cn/) |
   | 西刺代理 | 可用   | 几分钟一次 |   *     | 否       | [地址](http://www.xicidaili.com)|
   | 89IP代理 |  可用  | 几分钟一次 |   *     |  否      | [地址](http://www.goubanjia.com/)|
