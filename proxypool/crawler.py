@@ -10,6 +10,8 @@ from proxypool.utils import downloader
 from pyquery import PyQuery as pq
 import re
 from lxml import etree
+import execjs
+import base64
 logger = logging.getLogger(__name__)
 
 
@@ -41,9 +43,18 @@ class Crawler(object, metaclass=ProxyMetaclass):
             logger.debug("代理获取成功- {} -".format(proxy))
         return proxies
 
-    def crawl_daili66(self, page_count=6):
+    @classmethod
+    def run_decode_js(self, text):
+        with open('../templates/decodeip.js', 'r', encoding='utf-8') as f:
+            source_js = f.read()
+            js_parttern = execjs.compile(source_js)
+            result = js_parttern.call('decode', text)
+            return result
+
+    def crawl_daili66(self, page_count=4):
         """
         代理66：http://www.66ip.cn/index.html
+        封IP，少量几页
         :return:
         """
         start_url = 'http://www.66ip.cn/{}.html'
@@ -99,6 +110,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
     def crawl_xicidaili(self):
         """
         西刺代理：https://www.xicidaili.com/
+        封IP
         :return:
         """
         start_url = 'https://www.xicidaili.com/nn/{}'
@@ -283,6 +295,29 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     # print(result)
                     yield result
 
+    def crawl_sunjs(self):
+        """
+        sunjs代理：https://www.sunjs.com/proxy/list.html
+        :return:
+        """
+        start_url = 'https://www.sunjs.com/proxy/list.html'
+        ip_list = []
+        html = downloader(url=start_url, method='GET')
+        selector = etree.HTML(html)
+        decode_pattern = re.compile(r'decode\(\"(.*?)\"\)')
+        decode_data_list = decode_pattern.findall(html, re.S)
+        port_list = selector.xpath('//td[@data-title="PORT"]/text()')
+        for data in decode_data_list:
+            first_decode = self.run_decode_js(data)
+            ip_bytes = base64.b64decode(first_decode)
+            ip = str(ip_bytes, encoding='utf-8')
+            ip_list.append(ip)
+
+        for ip, port in zip(ip_list, port_list):
+            results = ip + ':' + port
+            # print(results)
+            yield results
+
     # def crawl_quanwang(self):
     #     """
     #     全网代理：http://www.goubanjia.com/
@@ -302,4 +337,6 @@ if __name__ == '__main__':
     测试单个函数注释掉yield
     """
     obj = Crawler()
-    obj.crawl_xila()
+    obj.crawl_sunjs()
+
+

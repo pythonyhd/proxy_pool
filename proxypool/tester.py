@@ -44,18 +44,18 @@ class ValidityTester(object):
                     real_proxy = real_proxy_data.get('http:')
                 else:
                     real_proxy = real_proxy_data.get('https:')  # aiohttp不支持检测https的代理
-                print("正在测试ip:{}".format(real_proxy))
+                # print("正在测试ip:{}".format(real_proxy))
                 async with session.get(url=TEST_URL, proxy=real_proxy, timeout=15, allow_redirects=False) as response:
                     if response.status in VALID_STATUS_CODES:
                         self.redis.max(proxy)  # 检测正常，设置分数
-                        results = await response.text()
-                        print('代理检测正常:', json.loads(results).get('origin'))
+                        # results = await response.text()
+                        # print('代理检测正常:', json.loads(results).get('origin'))
                     else:
-                        self.redis.decrase(proxy)  # 检测不正常，分数减1
-                        print("响应状态码不合法:{} - ip:{}".format(response.status, proxy))
+                        self.redis.decrase(proxy)  # 检测不正常，减分
+                        # print("响应状态码不合法:{} - ip:{}".format(response.status, proxy))
             except(ClientError, aiohttp.client_exceptions.ClientConnectorError, asyncio.TimeoutError, AttributeError):
                 self.redis.decrase(proxy)  # 抛异常减分
-                print("请求不到测试地址,代理不能用:{}".format(proxy))
+                # print("请求不到测试地址,代理不能用:{}".format(proxy))
 
     def run(self):
         """

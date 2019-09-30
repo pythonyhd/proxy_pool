@@ -34,7 +34,7 @@ class Scheduler(object):
         """
         getter = Getter()
         while True:
-            print('ip获取器开始运行')
+            print('ip数量不足，获取器开始运行')
             getter.run()
             time.sleep(cycle)
 

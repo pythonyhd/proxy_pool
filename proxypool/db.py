@@ -55,11 +55,11 @@ class RedisClient(object):
         # 返回名称为key的zset中元素element的score
         score = self.client.zscore(REDIS_KEY, proxy)
         if score and score > MIN_SCORE:
-            print("代理:{}-当前score:{}-请求不到检测的网址".format(proxy, score))
+            # print("代理:{}-当前score:{}-请求不到检测的网址".format(proxy, score))
             # key, increment, member 如果在名称为key的zset中已经存在元素member，则该元素的score增加increment；否则向集合中添加该元素，其score的值为increment
-            return self.client.zincrby(REDIS_KEY, -1, proxy)  # python与新版本redis交互，两个参数换过来了
+            return self.client.zincrby(REDIS_KEY, -2, proxy)  # python与新版本redis交互，两个参数换过来了
         else:
-            print("代理", proxy, '分数', score, "删除")
+            # print("代理", proxy, '分数', score, "删除")
             return self.client.zrem(REDIS_KEY, proxy)
 
     def exists(self, proxy):
@@ -77,7 +77,7 @@ class RedisClient(object):
         :return: 设置的结果
         """
 
-        print("代理IP", proxy, "正常,设置score为:", MAX_SCORE)
+        # print("代理IP", proxy, "正常,设置score为:", MAX_SCORE)
         return self.client.zadd(REDIS_KEY, {proxy: MAX_SCORE})
 
     def count(self):
