@@ -10,10 +10,10 @@ PORT = 6379
 DB = 15
 PASSWORD = ''
 # --------------代理分数设置-----------------#
-MAX_SCORE = 100  # 能访问测试url
+MAX_SCORE = 10  # 测试通过给得分数
 MIN_SCORE = 0
-INITIAL_SCORE = 10  # 第一次爬取成功ip得score设置成该值
-REDIS_KEY = 'proxies'
+INITIAL_SCORE = 6  # 第一次爬取成功ip，给得score设置成该值
+REDIS_KEY = 'freeproxies'
 # 代理池数量界限
 POOL_UPPER_THRESHOLD = 50000
 
