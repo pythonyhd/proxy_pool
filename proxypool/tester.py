@@ -52,6 +52,7 @@ class ValidityTester(object):
                         self.redis.max(proxy)  # 检测正常，设置分数
                         # results = await response.text()
                         # print('代理检测正常:', json.loads(results).get('origin'))
+                        print('代理检测正常:{}--'.format(proxy))
                     else:
                         self.redis.decrase(proxy)  # 检测不正常，减分
                         # print("响应状态码不合法:{} - ip:{}".format(response.status, proxy))
