@@ -4,7 +4,7 @@
 # @File    : utils.py
 from retrying import retry
 import requests
-from requests.exceptions import ConnectionError
+from requests.exceptions import ConnectionError, ConnectTimeout
 from fake_useragent import UserAgent
 header = {"User-Agent": UserAgent().random}
 
@@ -32,6 +32,8 @@ def downloader(url, method, data=None, options={}):
                     return response.text
         except ConnectionError:
             print("抓取失败", url)
+            return None
+        except (ConnectTimeout, TimeoutError):
             return None
         except Exception as e:
             print(e.args)

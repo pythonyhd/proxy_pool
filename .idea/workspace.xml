@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa4be0d6-7528-42cd-a013-0e91f92a87a1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxypool/crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxypool/crawler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxypool/tester.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxypool/tester.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxypool/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxypool/utils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
