@@ -16,6 +16,8 @@ try:
 except:
     from aiohttp import ClientProxyConnectionError as ProxyConnectionError
 from proxypool.settings import TEST_URL, VALID_STATUS_CODES, BATCH_TEST_SIZE
+import socket
+socket.setdefaulttimeout(30)
 
 
 class ValidityTester(object):

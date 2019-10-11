@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa4be0d6-7528-42cd-a013-0e91f92a87a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/decodeip.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/test_js.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/example.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/example.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proxypool/crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxypool/crawler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxypool/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxypool/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxypool/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxypool/scheduler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxypool/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxypool/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proxypool/tester.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxypool/tester.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -206,8 +199,8 @@
     <SUITE FILE_PATH="coverage/proxy_projects$tester.coverage" NAME="tester Coverage Results" MODIFIED="1569566966450" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/proxypool" />
     <SUITE FILE_PATH="coverage/proxy_projects$api.coverage" NAME="api Coverage Results" MODIFIED="1569571117588" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/proxypool" />
     <SUITE FILE_PATH="coverage/proxy_projects$getter.coverage" NAME="getter Coverage Results" MODIFIED="1569563718159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/proxypool" />
-    <SUITE FILE_PATH="coverage/proxy_projects$run.coverage" NAME="run Coverage Results" MODIFIED="1569805455406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/proxy_projects$test_js.coverage" NAME="test_js Coverage Results" MODIFIED="1569813597892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/templates" />
+    <SUITE FILE_PATH="coverage/proxy_projects$run.coverage" NAME="run Coverage Results" MODIFIED="1570757120021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/proxy_projects$example.coverage" NAME="example Coverage Results" MODIFIED="1569741163985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/proxy_projects$db.coverage" NAME="db Coverage Results" MODIFIED="1569735063501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/proxypool" />
   </component>

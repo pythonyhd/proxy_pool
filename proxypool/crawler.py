@@ -44,8 +44,9 @@ class Crawler(object, metaclass=ProxyMetaclass):
         return proxies
 
     @classmethod
-    def run_decode_js(self, text):
-        with open('../templates/decodeip.js', 'r', encoding='utf-8') as f:
+    def run_decode_js(cls, text):
+        # with open('../templates/decodeip.js', 'r', encoding='utf-8') as f:
+        with open(r'C:/testdouban/proxy_projects/templatestemplates/decodeip.js', 'r', encoding='utf-8') as f:
             source_js = f.read()
             js_parttern = execjs.compile(source_js)
             result = js_parttern.call('decode', text)
