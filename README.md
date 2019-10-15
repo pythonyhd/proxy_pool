@@ -75,4 +75,4 @@ pip3 install -r requirements.txt
 
 直接转账打赏作者的辛苦劳动：
 
-<img src="https://i.imgur.com/lzM8sPs.png" width="250" /><img src="https://i.imgur.com/5K6RiGy.jpg" width="250" />
+<img src="https://i.imgur.com/lzM8sPs.png" width="250" />
