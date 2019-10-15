@@ -67,3 +67,12 @@ pip3 install -r requirements.txt
 　　本项目依然不够完善，如果发现bug或有新的功能添加，请在[Issues](https://github.com/pythonyhd/proxy_pool/issues)中提交bug(或新功能)描述，在确认后提交你的代码。
 
 　　这里感谢GitHub大佬contributor的无私奉献！！！
+  
+### 赞助作者
+甲鱼说，咖啡是灵魂的饮料，买点咖啡
+
+[谢谢大家的☕️](./coffee.md)
+
+直接转账打赏作者的辛苦劳动：
+
+<img src="https://i.imgur.com/lzM8sPs.png" width="250" /><img src="https://i.imgur.com/5K6RiGy.jpg" width="250" />
