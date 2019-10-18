@@ -12,7 +12,9 @@ import re
 from lxml import etree
 import execjs
 import base64
+import os
 logger = logging.getLogger(__name__)
+TEMPLATES_PATH = os.path.dirname(os.path.abspath(__file__)) + '\\templates\\decodeip.js'
 
 
 class ProxyMetaclass(type):
@@ -46,7 +48,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
     @classmethod
     def run_decode_js(cls, text):
         # with open('../templates/decodeip.js', 'r', encoding='utf-8') as f:
-        with open(r'C:/testdouban/proxy_projects/templatestemplates/decodeip.js', 'r', encoding='utf-8') as f:
+        with open(TEMPLATES_PATH, 'r', encoding='utf-8') as f:
             source_js = f.read()
             js_parttern = execjs.compile(source_js)
             result = js_parttern.call('decode', text)
