@@ -14,7 +14,7 @@ import execjs
 import base64
 import os
 logger = logging.getLogger(__name__)
-TEMPLATES_PATH = os.path.dirname(os.path.abspath(__file__)) + '\\templates\\decodeip.js'
+TEMPLATES_PATH = os.path.dirname(os.path.dirname(__file__)) + r'/templates/decodeip.js'
 
 
 class ProxyMetaclass(type):

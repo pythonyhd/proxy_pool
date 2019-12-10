@@ -4,7 +4,7 @@
 # @File    : utils.py
 from retrying import retry
 import requests
-from requests.exceptions import ConnectionError, ConnectTimeout
+from requests.exceptions import ConnectionError, ConnectTimeout, ReadTimeout
 from fake_useragent import UserAgent
 
 header = {"User-Agent": UserAgent().random}
@@ -25,20 +25,18 @@ def downloader(url, method, data=None, headers={}, proxies=None, retry_times=10)
         try:
             if method == 'GET':
                 if proxies:
-                    res = requests.get(url=url, headers=headers, proxies=proxies, timeout=20)
+                    res = requests.get(url=url, headers=headers, proxies=proxies, timeout=30)
                 else:
-                    res = requests.get(url=url, headers=headers, timeout=20)
+                    res = requests.get(url=url, headers=headers, timeout=30)
             else:
                 if proxies:
-                    res = requests.post(url=url, data=data, headers=headers, proxies=proxies, timeout=20)
+                    res = requests.post(url=url, data=data, headers=headers, proxies=proxies, timeout=30)
                 else:
-                    res = requests.post(url=url, data=data, headers=headers, timeout=20)
+                    res = requests.post(url=url, data=data, headers=headers, timeout=30)
             if res.status_code in [200, 201, 202]:
                 return res.text
-        except ConnectionError:
+        except (ConnectTimeout, ReadTimeout, ConnectionError):
             print("抓取失败", url)
-            return None
-        except (ConnectTimeout, TimeoutError):
             return None
         except Exception as e:
             print(f'请求出错:{repr(e)}--需要重试')
@@ -68,10 +66,8 @@ def downloader_old(url, method, data=None, options={}):
                 response = requests.post(url=url, headers=headers, data=data, timeout=10)
                 if response.status_code in [200, 201, 202]:
                     return response.text
-        except ConnectionError:
+        except (ConnectTimeout, ReadTimeout, ConnectionError):
             print("抓取失败", url)
-            return None
-        except (ConnectTimeout, TimeoutError):
             return None
         except Exception as e:
             print(e.args)
