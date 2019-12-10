@@ -20,8 +20,8 @@ def get_proxy_from_redis():
     proxy_list = redis_client.zrevrange(REDIS_KEY, 0, 61)
     proxy = random.choice(proxy_list)
     proxies = {
-        'http:': 'http://{}'.format(proxy.decode('utf-8')),
-        'https:': 'https://{}'.format(proxy.decode('utf-8')),
+        'http': 'http://{}'.format(proxy.decode('utf-8')),
+        'https': 'https://{}'.format(proxy.decode('utf-8')),
     }
 
     return proxies

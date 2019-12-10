@@ -49,7 +49,7 @@ class RedisClient(object):
 
     def decrase(self, proxy):
         """
-        代理ip，score减分，每次减1分，当小于最小值的时候删除，提供给检测器使用
+        代理ip，score减分，每次减分，当小于最小值的时候删除，提供给检测器使用
         :return: 修改完的代理score
         """
         # 返回名称为key的zset中元素element的score
