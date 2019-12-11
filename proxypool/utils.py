@@ -39,10 +39,9 @@ def downloader(url, method, data=None, headers={}, proxies=None, retry_times=10)
             print("抓取失败", url)
             return None
         except Exception as e:
-            print(f'请求出错:{repr(e)}--需要重试')
+            print(f'请求出错:{repr(e)}--开始重试')
             if retry_times > 0:
                 retry_times -= 1
-            print(f'达到重试次数，仍然抓取失败')
 
 
 @retry(stop_max_attempt_number=8)

@@ -15,6 +15,7 @@ import base64
 import os
 logger = logging.getLogger(__name__)
 TEMPLATES_PATH = os.path.dirname(os.path.dirname(__file__)) + r'/templates/decodeip.js'
+BAIBIAN_PATH = os.path.dirname(os.path.dirname(__file__)) + r'/templates/baibian.js'
 
 
 class ProxyMetaclass(type):
@@ -47,11 +48,27 @@ class Crawler(object, metaclass=ProxyMetaclass):
 
     @classmethod
     def run_decode_js(cls, text):
-        # with open('../templates/decodeip.js', 'r', encoding='utf-8') as f:
+        """
+        sunjs代理JS解密
+        :param text: 密文
+        :return: 解密后的IP
+        """
         with open(TEMPLATES_PATH, 'r', encoding='utf-8') as f:
             source_js = f.read()
             js_parttern = execjs.compile(source_js)
             result = js_parttern.call('decode', text)
+            return result
+
+    @classmethod
+    def baibian_js(cls, text):
+        """
+        百变代理JS解密
+        :param text: 密文
+        :return: 解密后的IP
+        """
+        with open(BAIBIAN_PATH, 'r', encoding='utf-8') as f:
+            js_parttern = execjs.compile(f.read())
+            result = js_parttern.call('ddip', text)
             return result
 
     def crawl_daili66(self, page_count=4):
@@ -108,25 +125,6 @@ class Crawler(object, metaclass=ProxyMetaclass):
                 port_list = port_pattern.findall(html)
                 for ip, port in zip(ip_list, port_list):
                     result = ip.strip() + ':' + port.strip()
-                    yield result
-
-    def crawl_xicidaili(self):
-        """
-        西刺代理：https://www.xicidaili.com/
-        封IP
-        :return:
-        """
-        start_url = 'https://www.xicidaili.com/nn/{}'
-        for page in range(1, 4):
-            html = downloader(url=start_url.format(page), method='GET')
-            if html:
-                ip_pattern = re.compile(r'<td>(\d+\.\d+\.\d+\.\d+)</td>')
-                port_pattern = re.compile(r'<td>(\d+)</td>')
-                ip_list = ip_pattern.findall(html)
-                port_list = port_pattern.findall(html)
-                for ip, port in zip(ip_list, port_list):
-                    result = ip.strip() + ':' + port.strip()
-                    # print(result)
                     yield result
 
     def crawl_haidaili(self):
@@ -195,23 +193,6 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     result = ":".join([ip, port])
                     # print(result)
                     yield result
-
-    def crawl_cnip(self):
-        """
-        中国IP代理：https://cn-proxy.com/
-        :return:
-        """
-        start_url = 'https://cn-proxy.com/'
-        html = downloader(url=start_url, method='GET')
-        if html:
-            doc = pq(html)
-            trs = doc('.sortable tbody tr').items()
-            for tr in trs:
-                ip = tr.find('td:nth-child(1)').text().strip()
-                port = tr.find('td:nth-child(2)').text().strip()
-                result = ":".join([ip, port])
-                # print(result)
-                yield result
 
     def crawl_proxylist(self):
         """
@@ -288,7 +269,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
         :return:
         """
         start_url = 'http://www.nimadaili.com/putong/{}/'
-        urls = [start_url.format(page) for page in range(1, 4)]
+        urls = [start_url.format(page) for page in range(1, 6)]
         ip_port_pattern = re.compile(r'<td>(\d+\.\d+\.\d+\.\d+\:\d+)</td>')
         for url in urls:
             html = downloader(url=url, method='GET')
@@ -321,6 +302,70 @@ class Crawler(object, metaclass=ProxyMetaclass):
             # print(results)
             yield results
 
+    def crawl_baibian(self):
+        """
+        百变IP：https://www.baibianip.com/home/free.html
+        :return:代理IP
+        """
+        start_url = 'https://www.baibianip.com/home/free.html'
+        html = downloader(url=start_url, method='GET')
+        ip_pattern = re.compile(r"\('(.*)'\); </script></td>")
+        port_pattern = re.compile(r'<td> (\d+) </td>')
+        if html:
+            ip_list = ip_pattern.findall(html, re.S)
+            port_list = port_pattern.findall(html)
+            for ips, port in zip(ip_list, port_list):
+                ip = self.baibian_js(ips)
+                results = ip + ':' + port
+                # print(results)
+                yield results
+
+    def crawl_xicidaili(self):
+        """
+        西刺代理：https://www.xicidaili.com/
+        封IP
+        :return:
+        """
+        start_url = 'https://www.xicidaili.com/nn/{}'
+        for page in range(1, 4):
+            html = downloader(url=start_url.format(page), method='GET')
+            if html:
+                ip_pattern = re.compile(r'<td>(\d+\.\d+\.\d+\.\d+)</td>')
+                port_pattern = re.compile(r'<td>(\d+)</td>')
+                ip_list = ip_pattern.findall(html)
+                port_list = port_pattern.findall(html)
+                for ip, port in zip(ip_list, port_list):
+                    result = ip.strip() + ':' + port.strip()
+                    # print(result)
+                    yield result
+
+    def crawl_cnip(self):
+        """
+        中国IP代理：http://cn-proxy.com/
+        该网站无法访问
+        :return:
+        """
+        headers = {
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+            "DNT": "1",
+            "Host": "cn-proxy.com",
+            "Referer": "https://www.google.com/",
+            "Upgrade-Insecure-Requests": "1",
+        }
+        start_url = 'http://cn-proxy.com/'
+        html = downloader(url=start_url, method='GET', headers=headers)
+        if html:
+            doc = pq(html)
+            trs = doc('.sortable tbody tr').items()
+            for tr in trs:
+                ip = tr.find('td:nth-child(1)').text().strip()
+                port = tr.find('td:nth-child(2)').text().strip()
+                result = ":".join([ip, port])
+                # print(result)
+                yield result
+
     # def crawl_quanwang(self):
     #     """
     #     全网代理：http://www.goubanjia.com/
@@ -340,6 +385,6 @@ if __name__ == '__main__':
     测试单个函数注释掉yield
     """
     obj = Crawler()
-    obj.crawl_sunjs()
+    obj.crawl_baibian()
 
 
