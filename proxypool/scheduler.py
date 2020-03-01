@@ -1,25 +1,18 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2019/9/27 10:26
-# @Author  : Yasaka.Yu
-# @File    : scheduler.py
-"""
-代理池调度器
-"""
 import time
+
+from multiprocessing import Process
+
 from proxypool.settings import TESTER_CYCLE, GETTER_CYCLE
 from proxypool.tester import ValidityTester
 from proxypool.getter import Getter
-from multiprocessing import Process
 from proxypool.settings import TESTER_ENABLED, GETTER_ENABLED, API_ENABLED, API_HOST, API_PORT
 from proxypool.api import app
 
 
 class Scheduler(object):
     def tester_scheduler(self, cycle=TESTER_CYCLE):
-        """
-        定时调度，检测器
-        :return:
-        """
+        """ 定时调度，检测器 """
         tester = ValidityTester()
         while True:
             print('测试器开始运行')
@@ -27,11 +20,7 @@ class Scheduler(object):
             time.sleep(cycle)
 
     def getter_scheduler(self, cycle=GETTER_CYCLE):
-        """
-        IP获取器
-        :param cycle:
-        :return:
-        """
+        """ IP获取器 """
         getter = Getter()
         while True:
             print('ip数量不足，获取器开始运行')
@@ -39,10 +28,7 @@ class Scheduler(object):
             time.sleep(cycle)
 
     def api_scheduler(self):
-        """
-        flask服务api调度
-        :return:
-        """
+        """ flask服务api调度 """
         app.run(API_HOST, API_PORT)
 
     def run(self):

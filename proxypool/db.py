@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2019/9/27 10:47
-# @Author  : Yasaka.Yu
-# @File    : db.py
 """
 存储器，支持redis存储，使用zset对代理去重加评分，提供flask的api接口
 """
 import random
-from proxypool.error import PoolEmptyError
-import redis
 import re
+
+import redis
+
+from proxypool.error import PoolEmptyError
 from proxypool.settings import HOST,PORT,PASSWORD,DB,INITIAL_SCORE,REDIS_KEY,MIN_SCORE,MAX_SCORE
 
 
@@ -20,10 +19,7 @@ class RedisClient(object):
             self.client = redis.StrictRedis(host=HOST, port=PORT, db=DB)
 
     def add(self, proxy, score=INITIAL_SCORE):
-        """
-        添加代理,score用于排序。如果该元素已经存在，则根据score更新该元素的顺序。
-        :return:
-        """
+        """ 添加代理,score用于排序。如果该元素已经存在，则根据score更新该元素的顺序。 """
         if not re.match(r'\d+\.\d+\.\d+\.\d+\:\d+', proxy):
             print("代理不合法:", proxy)
             return
@@ -81,10 +77,7 @@ class RedisClient(object):
         return self.client.zadd(REDIS_KEY, {proxy: MAX_SCORE})
 
     def count(self):
-        """
-        获取数量
-        :return:
-        """
+        """ 获取数量 """
         # 返回名称为key的zset的基数
         return self.client.zcard(REDIS_KEY)
 
@@ -105,17 +98,13 @@ class RedisClient(object):
         return self.client.zrevrange(REDIS_KEY, start, stop - 1)
 
     def delete(self, proxy):
-        """
-        删除代理
-        :return:
-        """
+        """ 删除代理 """
         return self.client.zrem(REDIS_KEY, proxy)
 
 
 if __name__ == '__main__':
     conn = RedisClient()
     # proxy = '120.83.111.70:9999'
-
     # res = conn.add(proxy)
     # print(res)
     result = conn.batch(0, 60)

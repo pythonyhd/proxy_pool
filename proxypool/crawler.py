@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2019/9/26 17:56
-# @Author  : Yasaka.Yu
-# @File    : crawler.py
-"""
-IP代理下载器
-"""
-import logging
-from proxypool.utils import downloader
-from pyquery import PyQuery as pq
+import os
 import re
+import logging
+import base64
+
+from pyquery import PyQuery as pq
 from lxml import etree
 import execjs
-import base64
-import os
+
+from proxypool.utils import downloader
+
 logger = logging.getLogger(__name__)
 TEMPLATES_PATH = os.path.dirname(os.path.dirname(__file__)) + r'/templates/decodeip.js'
 BAIBIAN_PATH = os.path.dirname(os.path.dirname(__file__)) + r'/templates/baibian.js'
@@ -36,9 +33,7 @@ class ProxyMetaclass(type):
 
 
 class Crawler(object, metaclass=ProxyMetaclass):
-    """
-    抓取各大免费网站的代理IP，可以自由添加，函数名必须以crawl开头
-    """
+    """ 抓取各大免费网站的代理IP，可以自由添加，函数名必须以crawl开头 """
     def get_proxies(self, callback):
         proxies = []
         for proxy in eval('self.{}()'.format(callback)):
@@ -72,11 +67,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
             return result
 
     def crawl_daili66(self, page_count=4):
-        """
-        代理66：http://www.66ip.cn/index.html
-        封IP，少量几页
-        :return:
-        """
+        """ 代理66：http://www.66ip.cn/index.html  封IP，少量几页"""
         start_url = 'http://www.66ip.cn/{}.html'
         urls = [start_url.format(page) for page in range(1, page_count)]
         for url in urls:
@@ -92,10 +83,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     yield data
 
     def crawl_ip3366(self, page_count=6):
-        """
-        云代理爬虫：http://www.ip3366.net/free/?stype=1
-        :return:
-        """
+        """ 云代理爬虫：http://www.ip3366.net/free/?stype=1 """
         start_url = 'http://www.ip3366.net/free/?stype=1&page={}'
         urls = [start_url.format(url) for url in range(1, page_count)]
         for url in urls:
@@ -110,11 +98,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     yield result
 
     def crawl_kuai(self):
-        """
-        快代理：https://www.kuaidaili.com/free/inha/1/
-        :param page_count:
-        :return:
-        """
+        """ 快代理：https://www.kuaidaili.com/free/inha/1/ """
         start_url = 'https://www.kuaidaili.com/free/inha/{}/'
         for page in range(1, 4):
             html = downloader(url=start_url.format(page), method='GET')
@@ -128,10 +112,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     yield result
 
     def crawl_haidaili(self):
-        """
-        IP海：http://www.iphai.com/
-        :return:
-        """
+        """ IP海：http://www.iphai.com/ """
         start_url = 'http://www.iphai.com/'
         html = downloader(url=start_url, method='GET')
         doc = pq(html)
@@ -143,10 +124,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
             yield result
 
     def crawl_wuyou(self):
-        """
-        无忧代理：http://www.data5u.com/
-        :return:可用率极低
-        """
+        """ 无忧代理：http://www.data5u.com/ 可用率极低 """
         start_url = 'http://www.data5u.com/'
         html = downloader(url=start_url, method='GET')
         if html:
@@ -158,10 +136,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                 yield result
 
     def crawl_kaixin(self):
-        """
-        开心代理：http://www.kxdaili.com/dailiip.html
-        :return:
-        """
+        """ 开心代理：http://www.kxdaili.com/dailiip.html """
         start_url = 'http://www.kxdaili.com/dailiip/1/{}.html'
         for page in range(1, 4):
             html = downloader(url=start_url.format(page), method='GET')
@@ -176,10 +151,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     yield result
 
     def crawl_free(self):
-        """
-        免费代理库：http://ip.jiangxianli.com/
-        :return:
-        """
+        """ 免费代理库：http://ip.jiangxianli.com/ """
         start_url = 'http://ip.jiangxianli.com/?page={}'
         urls = [start_url.format(page) for page in range(1, 4)]
         for url in urls:
@@ -195,10 +167,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     yield result
 
     def crawl_proxylist(self):
-        """
-        老外：https://list.proxylistplus.com/Fresh-HTTP-Proxy-List-1
-        :return:
-        """
+        """ 老外：https://list.proxylistplus.com/Fresh-HTTP-Proxy-List-1 """
         start_url = 'https://list.proxylistplus.com/Fresh-HTTP-Proxy-List-1'
         html = downloader(url=start_url, method="GET")
         if html:
@@ -210,9 +179,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                 yield result
 
     def crawl_89ip(self):
-        """
-        89IP代理：http://www.89ip.cn/
-        """
+        """ 89IP代理：http://www.89ip.cn/ """
         start_url = 'http://www.89ip.cn/index_{}.html'
         for page in range(1, 6):
             if page == 1:
@@ -231,10 +198,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     yield result
 
     def crawl_xiaohuan(self):
-        """
-        小幻代理：https://ip.ihuan.me/
-        :return:
-        """
+        """ 小幻代理：https://ip.ihuan.me/ """
         start_url = 'https://ip.ihuan.me/'
         html = downloader(url=start_url, method='GET')
         if html:
@@ -248,10 +212,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                 yield result
 
     def crawl_xila(self):
-        """
-        西拉代理：http://www.xiladaili.com/gaoni/2/
-        :return:
-        """
+        """ 西拉代理：http://www.xiladaili.com/gaoni/2/ """
         start_url = 'http://www.xiladaili.com/gaoni/{}/'
         for page in range(1, 6):
             html = downloader(url=start_url.format(page), method="GET")
@@ -264,10 +225,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     yield ip_port
                     
     def crawl_nima(self):
-        """
-        尼玛代理：http://www.nimadaili.com/putong/
-        :return:
-        """
+        """ 尼玛代理：http://www.nimadaili.com/putong/ """
         start_url = 'http://www.nimadaili.com/putong/{}/'
         urls = [start_url.format(page) for page in range(1, 6)]
         ip_port_pattern = re.compile(r'<td>(\d+\.\d+\.\d+\.\d+\:\d+)</td>')
@@ -280,10 +238,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     yield result
 
     def crawl_sunjs(self):
-        """
-        sunjs代理：https://www.sunjs.com/proxy/list.html
-        :return:
-        """
+        """ sunjs代理：https://www.sunjs.com/proxy/list.html """
         start_url = 'https://www.sunjs.com/proxy/list.html'
         ip_list = []
         html = downloader(url=start_url, method='GET')
@@ -303,10 +258,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
             yield results
 
     def crawl_baibian(self):
-        """
-        百变IP：https://www.baibianip.com/home/free.html
-        :return:代理IP
-        """
+        """ 百变IP：https://www.baibianip.com/home/free.html """
         start_url = 'https://www.baibianip.com/home/free.html'
         html = downloader(url=start_url, method='GET')
         ip_pattern = re.compile(r"\('(.*)'\); </script></td>")
@@ -321,11 +273,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
                 yield results
 
     def crawl_xicidaili(self):
-        """
-        西刺代理：https://www.xicidaili.com/
-        封IP
-        :return:
-        """
+        """ 西刺代理：https://www.xicidaili.com/ 封IP """
         start_url = 'https://www.xicidaili.com/nn/{}'
         for page in range(1, 4):
             html = downloader(url=start_url.format(page), method='GET')
@@ -343,7 +291,6 @@ class Crawler(object, metaclass=ProxyMetaclass):
         """
         中国IP代理：http://cn-proxy.com/
         该网站无法访问
-        :return:
         """
         headers = {
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
@@ -363,7 +310,6 @@ class Crawler(object, metaclass=ProxyMetaclass):
                 ip = tr.find('td:nth-child(1)').text().strip()
                 port = tr.find('td:nth-child(2)').text().strip()
                 result = ":".join([ip, port])
-                # print(result)
                 yield result
 
     # def crawl_quanwang(self):
@@ -381,9 +327,7 @@ class Crawler(object, metaclass=ProxyMetaclass):
 
 
 if __name__ == '__main__':
-    """
-    测试单个函数注释掉yield
-    """
+    """ 测试单个函数注释掉yield """
     obj = Crawler()
     obj.crawl_baibian()
 

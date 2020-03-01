@@ -1,37 +1,29 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2019/9/27 10:38
-# @Author  : Yasaka.Yu
-# @File    : tester.py
-"""
-检测器
-"""
-from proxypool.db import RedisClient
+import socket
+import sys
+import time
+import json
+
 import asyncio
 import aiohttp
-import time
-import sys
-import json
 try:
     from aiohttp import ClientError
 except:
     from aiohttp import ClientProxyConnectionError as ProxyConnectionError
+
 from proxypool.settings import TEST_URL, VALID_STATUS_CODES, BATCH_TEST_SIZE
-import socket
+from proxypool.db import RedisClient
+
 socket.setdefaulttimeout(30)
 
 
 class ValidityTester(object):
-    """
-    检测代理是否正常
-    """
+    """ 检测代理是否正常 """
     def __init__(self):
         self.redis = RedisClient()
 
     async def test_single_proxy(self, proxy):
-        """
-        测试单个代理IP
-        :return:
-        """
+        """ 测试单个代理IP """
         conn = aiohttp.TCPConnector(verify_ssl=False)
         async with aiohttp.ClientSession(connector=conn) as session:
             try:
@@ -61,11 +53,7 @@ class ValidityTester(object):
                 # print("请求不到测试地址,代理不能用:{}".format(proxy))
 
     def run(self):
-        """
-        检测主函数
-        :return:
-        """
-        # print('测试器开始运行')
+        """ 检测主函数 """
         try:
             count = self.redis.count()
             print('当前剩余', count, '个代理')

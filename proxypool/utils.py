@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2019/9/27 9:47
-# @Author  : Yasaka.Yu
-# @File    : utils.py
 from retrying import retry
 import requests
 from requests.exceptions import ConnectionError, ConnectTimeout, ReadTimeout

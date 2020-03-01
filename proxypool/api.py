@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2019/9/27 15:29
-# @Author  : Yasaka.Yu
-# @File    : api.py
 """
 flask对接redis数据库，执行相应的操作，g保存的是应用层面的全局变量，request保存的是请求上下文的变量。
 """
@@ -26,28 +23,21 @@ def index():
 
 @app.route('/random')
 def get_random_ip():
-    """
-    随机获取ip
-    :return:
-    """
+    """ 随机获取ip """
     connection = get_conn()
     return connection.random()
 
 
 @app.route('/count')
 def get_counts():
-    """
-    Get the count of proxies
-    """
+    """ Get the count of proxies """
     conn = get_conn()
     return str(conn.count())
 
 
 @app.route('/put')
 def upload_proxy():
-    """
-    将proxy上传到redis数据库中
-    """
+    """ 将proxy上传到redis数据库中 """
     conn = get_conn()
     proxy = request.args.get("proxy")
     remote_ip = request.remote_addr
@@ -61,10 +51,7 @@ def upload_proxy():
 
 @app.route('/remove')
 def remove_proxy():
-    """
-    删除代理
-    :return:
-    """
+    """ 删除代理 """
     conn = get_conn()
     proxy = request.args.get('proxy', '')
     if not proxy:

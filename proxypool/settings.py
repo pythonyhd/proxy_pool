@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2019/9/27 10:55
-# @Author  : Yasaka.Yu
-# @File    : settings.py
 
 
 # --------------redis连接配置-----------------#
@@ -9,6 +6,7 @@ HOST = '127.0.0.1'
 PORT = 6379
 DB = 15
 PASSWORD = ''
+
 # --------------代理分数设置-----------------#
 MAX_SCORE = 10  # 测试通过给得分数
 MIN_SCORE = 0

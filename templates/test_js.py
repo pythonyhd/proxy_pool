@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2019/9/30 11:15
-# @Author  : Yasaka.Yu
-# @File    : test_js.py
 import execjs
 
 

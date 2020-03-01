@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2019/9/27 11:41
-# @Author  : Yasaka.Yu
-# @File    : error.py
 
 
 class PoolEmptyError(Exception):

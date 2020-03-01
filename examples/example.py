@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2019/9/29 14:32
-# @Author  : Yasaka.Yu
-# @File    : example.py
+import random
 import time
 
 import redis
-import random
 import requests
-from lxml import etree
 from fake_useragent import UserAgent
-# todo redis连接池
+from lxml import etree
+
+# redis连接池
 pool = redis.ConnectionPool(host="127.0.0.1", port=6379, db=15)
-# todo 从池子里面取除值
+# 从池子里面取除值
 redis_client = redis.Redis(connection_pool=pool, decode_responses=True)
 REDIS_KEY = "freeproxies"
 
