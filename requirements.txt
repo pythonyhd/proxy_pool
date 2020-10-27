@@ -10,7 +10,7 @@ async-timeout==3.0.1
 chardet==3.0.4
 constantly==15.1.0
 contextlib2==0.5.5
-cryptography==2.7
+cryptography==3.2
 cssselect==1.0.3
 cycler==0.10.0
 Cython==0.29.12
